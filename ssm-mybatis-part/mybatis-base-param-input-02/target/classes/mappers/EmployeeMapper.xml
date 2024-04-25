@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.atguigu.mapper.EmployeeMapper">
+
+    <!--
+        #{ key }：占位符 + 赋值 emp_id = ?  ? = 赋值
+        ${ key }：字符串拼接 "emp_id = " + id
+
+        推荐使用 #{ key }防止注入攻击的问题！！！
+        总结：动态值 使用 #{ key } 动态的列名 容器名 关键字 ${ key }
+        ? 只能替代值的位置，不能替代的是 容器名 (标签，列名，sql关键字) emp_id = ? 不能写 ? = ?
+        xxx(columnName, columnValue)
+        sql  select * from 表 where 列名是动态的${columnName} = 动态的值 #{columnValue}
+    -->
+    <select id="queryById" resultType="com.atguigu.pojo.Employee">
+        select emp_id empId, emp_name empName, emp_salary empSalary
+        from t_emp where emp_id = #{id}
+    </select>
+
+</mapper>

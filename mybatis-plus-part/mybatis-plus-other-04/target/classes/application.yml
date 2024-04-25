@@ -1,0 +1,22 @@
+# 连接池配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://localhost:3306/mybatis-example
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  # 默认mapper.xml文件 指定的位置 mapper文件夹
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 控制台输出sql语句
+  type-aliases-package: com.atguigu.pojo
+  global-config:
+    db-config:
+      table-prefix: t_ #表名前缀 不用在每个实体类配置@TableName
+      id-type: auto #全局将主键设置为自增长策略
+      # logic-delete-field: deleted #逻辑删除的属性名
+      logic-delete-value: 1 # 删除 1
+      logic-not-delete-value: 0 # 为删除 0

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.atguigu.mapper.TeacherMapper">
+
+    <!--
+        期望，非自增长的主键，交给mybatis帮助我们维护！
+    -->
+    <insert id="insertTeacher">
+        <!--
+            插入之前，先指定一段sql语句，生成一个主键值！
+            order="before|after" sql语句是在插入语句之前还是之后执行！
+            resultType = 返回值类型
+            keyProperty = 查询结果给哪个属性赋值
+
+            //自己维护主键
+                String id = UUID.randomUUID().toString().replaceAll("-", "");
+                teacher.settId(id);
+        -->
+        <selectKey order="BEFORE" resultType="string" keyProperty="tId">
+            select replace(UUID(), '-', '');
+        </selectKey>
+
+        insert into teacher (t_id, t_name) value(#{tId}, #{tName})
+    </insert>
+</mapper>
